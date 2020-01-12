@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import './Search.css';
 import Loading from './Loading';
-//import Searchedcoin from './Searchedcoin';
+import Searchedcoin from './Searchedcoin';
  class Search extends Component{
     state={
         flag: false,
@@ -13,9 +13,9 @@ import Loading from './Loading';
     searchEvent =(e) =>
     {
         this.setState({
-           [e.target.name]: e.target.value
+           [e.target.name]: ((e.target.value).charAt(0).toUpperCase() + (e.target.value).slice(1))
         });
-        //console.log(this.state.coin_name);
+        console.log(this.state.coin_name);
         //here searched value is stored in coin_name
     }
     handleSubmit =(e) =>
@@ -25,6 +25,7 @@ import Loading from './Loading';
             return coin.name===this.state.coin_name;
         }
             );
+            console.log(coin_id);
             //here i used different method of calling api as  i was not able to use await keyword here
             var xhr= new XMLHttpRequest();
             xhr.open("GET","https://api.coingecko.com/api/v3/coins/"+coin_id[0].id+"");
@@ -51,12 +52,12 @@ import Loading from './Loading';
 
                 <h1>Crypto Wiki</h1>
                 <form>
-                    <div><input className="search-input mb-2" type="text" placeholder="Enter the Crypto Currency Name" name="coin_name" value={this.state.value} onChange={this.searchEvent}  />
+                    <div><input className="search-input mb-2" type="text" placeholder="Enter the Crypto Currency Name" name="coin_name" value={this.state.value} onKeyUp={this.searchEvent}  />
                     <button className="btn btn-success" type="button"  onClick={this.handleSubmit}>Get Info About Coin</button>
                     </div>
                 </form>
 
-                {this.state.api_found ? (<p></p>) : (<p><b>Search For a Coin</b></p>)}
+                {this.state.api_found ? (<Searchedcoin api_data={this.state.searched_coin}  />) : (<p><b>Search For a Coin</b></p>)}
 
              </div>)
              :

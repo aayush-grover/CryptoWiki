@@ -10,6 +10,7 @@ input:nth-child(1){
     width: 40%;
     padding: 5px;
     padding-left: 15px;
+    text-transform: capitalize;
 }
 input:nth-child(2){
     margin-top: -5px;
